@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: [6, "minimum password length is 6 characters"],
     },
+
+    isAdmin: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 );
