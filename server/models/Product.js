@@ -14,4 +14,5 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 ProductSchema.methods.testFunc = function testFunc(params) {};
+
 module.exports = mongoose.model("Product", ProductSchema);
