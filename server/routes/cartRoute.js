@@ -18,7 +18,6 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   const productToCart = req.body.productToCart;
-  // const price = req.body
   insertProductToCart(productToCart)
     .then((theProductChosen) => res.json(theProductChosen))
     .catch((err) => res.json(err));
