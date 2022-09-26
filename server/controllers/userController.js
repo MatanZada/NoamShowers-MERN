@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-const insertUser = (firstName, lastName, email, password, isAdmin) => {
+const addUser = (firstName, lastName, email, password, isAdmin) => {
   return new Promise((resolve, reject) => {
     const user = new User({
       firstName,
@@ -24,6 +24,6 @@ const getAllUsers = () => {
 };
 
 module.exports = {
-  insertUser,
+  addUser,
   getAllUsers,
 };
