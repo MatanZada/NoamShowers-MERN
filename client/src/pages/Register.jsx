@@ -61,6 +61,7 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
+    isAdmin: false,
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
