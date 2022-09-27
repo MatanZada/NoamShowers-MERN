@@ -25,10 +25,13 @@ app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 
-mongoose.connect("mongodb://0.0.0.0:27017/noamShowerProject").then(() => {
-  app.listen(port, () => {
-    logger.info(
-      `start server start listening on port http://localhost:${port}`
-    );
-  });
-});
+mongoose
+  .connect("mongodb://0.0.0.0:27017/noamShowerProject")
+  .then(() => {
+    app.listen(port, () => {
+      logger.info(
+        `start server start listening on port http://localhost:${port}`
+      );
+    });
+  })
+  .catch((err) => console.error(err));
