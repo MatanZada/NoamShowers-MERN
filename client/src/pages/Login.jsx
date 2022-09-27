@@ -99,24 +99,6 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form onSubmit={handleSubmit}>
           <Input
-            type="text"
-            placeholder="First Name"
-            name="firstName"
-            onChange={handleChange}
-            value={data.firstName}
-            required
-          />
-
-          <Input
-            type="text"
-            placeholder="Last Name"
-            name="lastName"
-            onChange={handleChange}
-            value={data.lastName}
-            required
-          />
-
-          <Input
             type="email"
             placeholder="Email"
             name="email"
@@ -133,7 +115,6 @@ const Login = () => {
             value={data.password}
             required
           />
-          {/* <Input placeholder="confirm Password" /> */}
           {error && <Error>Something went wrong...</Error>}
           <Button type="submit">LOGIN</Button>
         </Form>
