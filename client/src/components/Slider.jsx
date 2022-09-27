@@ -97,6 +97,7 @@ const Slider = () => {
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
+            {/* SALE */}
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
