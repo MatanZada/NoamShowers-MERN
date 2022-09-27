@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { addUser, getAllUsers } = require("../controllers/userController");
+const {
+  addUser,
+  getAllUsers,
+  getOneUser,
+} = require("../controllers/userController");
 
 router.post("/", (req, res) => {
   let { firstName, lastName, email, password, isAdmin } = req.body;
@@ -10,6 +14,16 @@ router.post("/", (req, res) => {
     .then((userDate) => res.json(userDate))
     .catch((error) => res.json(error));
   console.log(req.body);
+});
+
+router.get("/:id", (req, res) => {
+  getOneUser(req.params.id)
+    .then((userDate) => {
+      res.json(userDate);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 router.get("/", (req, res) => {
