@@ -248,7 +248,7 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <StripeCheckout
+            {/* <StripeCheckout
               name="Mr.Zada Shop"
               image="https://avatars.githubusercontent.com/u/91349313?s=400&u=ddc768d097fe01dd00d174aac286159411a94ab2&v=4"
               billingAddress
@@ -259,7 +259,7 @@ const Cart = () => {
               stripeKey={KEY}
             >
               <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+            </StripeCheckout> */}
           </Summary>
         </Bottom>
       </Wrapper>
