@@ -9,6 +9,7 @@ import StripeCheckout from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
+import StripeContainer from "../components/StripeContainer";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -160,6 +161,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const [showItem, setShowItem] = useState(false);
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   let navigate = useNavigate();
@@ -248,18 +250,17 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            {/* <StripeCheckout
-              name="Mr.Zada Shop"
-              image="https://avatars.githubusercontent.com/u/91349313?s=400&u=ddc768d097fe01dd00d174aac286159411a94ab2&v=4"
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout> */}
+            <div className="App">
+              {showItem ? (
+                <StripeContainer />
+              ) : (
+                <>
+                  <Button onClick={() => setShowItem(true)}>
+                    CHECKOUT NOW
+                  </Button>
+                </>
+              )}
+            </div>
           </Summary>
         </Bottom>
       </Wrapper>
