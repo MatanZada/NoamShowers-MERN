@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -22,6 +23,13 @@ const CARD_OPTIONS = {
   },
 };
 
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+`;
 export default function PaymentForm() {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
@@ -63,14 +71,11 @@ export default function PaymentForm() {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <button>Pay</button>
+          <Button>PAY </Button>
         </form>
       ) : (
         <div>
-          <h2>
-            You just bought a sweet spatula congrats this is the best decision
-            of you're life
-          </h2>
+          <h2>success! You have successfully purchased the product</h2>
         </div>
       )}
     </>
