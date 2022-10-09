@@ -35,12 +35,12 @@ export const categories = [
     title: "BATHROOM",
   },
   {
-    id: 1,
+    id: 2,
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/07/A42557.jpg",
     title: "SINK FAUCET",
   },
   {
-    id: 1,
+    id: 3,
     img: "https://www.el-gal.co.il/wp-content/uploads/2018/07/VitrA6286srevize.jpg",
     title: "BATHROOM SINK",
   },

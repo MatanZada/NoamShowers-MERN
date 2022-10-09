@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "shower",
+    "price": 100,
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/Vitra_0256_copy-1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "shower22",
+    "price": 222,
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/304_Versus_-_Bathroom_-_White-copy.jpg"
+  },
+  {
+    "id": 3,
+    "name": "shower333",
+    "price": 333,
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/Memoria_Elements_-_Set_02_-_01_Main_Set_Revised-1.jpg"
+  }
+]
