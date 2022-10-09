@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -34,6 +35,7 @@ export default function PaymentForm() {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,10 +47,14 @@ export default function PaymentForm() {
     if (!error) {
       try {
         const { id } = paymentMethod;
-        const response = await axios.post("http://localhost:8080/payment", {
-          amount: 1000,
-          id,
-        });
+        const response = await axios.post(
+          "http://localhost:8080/payment",
+          {
+            amount: 1000,
+            id,
+          },
+          navigate("/success")
+        );
 
         if (response.data.success) {
           console.log("Successful payment");
