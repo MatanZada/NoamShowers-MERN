@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Success from "../pages/Success";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -30,6 +31,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 export default function PaymentForm() {
   const [success, setSuccess] = useState(false);
@@ -77,11 +79,11 @@ export default function PaymentForm() {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <Button>PAY </Button>
+          <Button>PAY</Button>
         </form>
       ) : (
         <div>
-          <h2>success! You have successfully purchased the product</h2>
+          <Success />
         </div>
       )}
     </>
