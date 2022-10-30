@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
+import { useMemo } from "react";
 
 const Container = styled.div``;
 
@@ -183,6 +184,17 @@ const Cart = () => {
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, cart, navigate]);
 
+  const totalPrice = useMemo(() => {
+    return cart.products.reduce((prev, next) => {
+      return (
+        prev +
+        (next.price
+          ? Number(next.price.replace("$", "")) * Number(next.quantity)
+          : 0)
+      );
+    }, 0);
+  }, [cart]);
+
   return (
     <Container>
       <Navbar />
@@ -230,7 +242,8 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+
+              <SummaryItemPrice>{totalPrice + "$"}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -242,6 +255,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
+
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <div className="App">
