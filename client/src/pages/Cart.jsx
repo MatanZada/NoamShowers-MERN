@@ -240,11 +240,7 @@ const Cart = () => {
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
 
-              <SummaryItemPrice>{totalPrice + "$"}</SummaryItemPrice>
-            </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
               <SummaryItemPrice>$ 5.90</SummaryItemPrice>
@@ -255,8 +251,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>{totalPrice + "$"}</SummaryItemPrice>
             </SummaryItem>
             <div className="App">
               {showItem ? (
