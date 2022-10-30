@@ -6,15 +6,15 @@ import { NavLink } from "react-router-dom";
 
 const Success = () => {
   const location = useLocation();
-  const data = location.state.stripeData;
-  const cart = location.state.cart;
+  const data = location.state;
+  const cart = location.state;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
 
   useEffect(() => {
     const createOrder = async () => {
       try {
-        const res = await userRequest.post("/api/orders", {
+        const res = await userRequest.post("/orders", {
           userId: currentUser._id,
           products: cart.products.map((item) => ({
             productId: item._id,
