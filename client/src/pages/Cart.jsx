@@ -182,20 +182,13 @@ const Cart = () => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, cart, navigate]);
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
-        <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
-        </Top>
         <Bottom>
           <Info>
             {cart.products.map((product) => (
@@ -207,11 +200,11 @@ const Cart = () => {
                       <b>Product:</b> {product.title}
                     </ProductName>
                     <ProductId>
-                      <b>ID:</b> {product._id}
+                      <b>ID:</b> {product.id}
                     </ProductId>
                     <ProductColor color={product.color} />
                     <ProductSize>
-                      <b>Size:</b> {product.size}
+                      <b>Size:</b> {product.sizing}
                     </ProductSize>
                   </Details>
                 </ProductDetail>
@@ -221,9 +214,13 @@ const Cart = () => {
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
                   </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {product.price * product.quantity}
-                  </ProductPrice>
+                  {product.price && (
+                    <ProductPrice>
+                      {Number(product.price.replace("$", "")) *
+                        Number(product.quantity) +
+                        "$"}
+                    </ProductPrice>
+                  )}
                 </PriceDetail>
               </Product>
             ))}
