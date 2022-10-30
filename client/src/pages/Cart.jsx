@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
+import { useMemo } from "react";
 
 const Container = styled.div``;
 
@@ -182,20 +183,24 @@ const Cart = () => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, cart, navigate]);
+
+  const totalPrice = useMemo(() => {
+    return cart.products.reduce((prev, next) => {
+      return (
+        prev +
+        (next.price
+          ? Number(next.price.replace("$", "")) * Number(next.quantity)
+          : 0)
+      );
+    }, 0);
+  }, [cart]);
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
-        <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
-        </Top>
         <Bottom>
           <Info>
             {cart.products.map((product) => (
@@ -207,11 +212,11 @@ const Cart = () => {
                       <b>Product:</b> {product.title}
                     </ProductName>
                     <ProductId>
-                      <b>ID:</b> {product._id}
+                      <b>ID:</b> {product.id}
                     </ProductId>
                     <ProductColor color={product.color} />
                     <ProductSize>
-                      <b>Size:</b> {product.size}
+                      <b>Size:</b> {product.sizing}
                     </ProductSize>
                   </Details>
                 </ProductDetail>
@@ -221,9 +226,13 @@ const Cart = () => {
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
                   </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {product.price * product.quantity}
-                  </ProductPrice>
+                  {product.price && (
+                    <ProductPrice>
+                      {Number(product.price.replace("$", "")) *
+                        Number(product.quantity) +
+                        "$"}
+                    </ProductPrice>
+                  )}
                 </PriceDetail>
               </Product>
             ))}
@@ -231,10 +240,7 @@ const Cart = () => {
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
+
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
               <SummaryItemPrice>$ 5.90</SummaryItemPrice>
@@ -245,7 +251,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>{totalPrice + "$"}</SummaryItemPrice>
             </SummaryItem>
             <div className="App">
               {showItem ? (

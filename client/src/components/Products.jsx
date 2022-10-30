@@ -24,6 +24,9 @@ const Products = ({ cat, filters, sort }) => {
             : "http://localhost:8080/api/products"
         );
         setProducts(res.data);
+        /* Setting the products to the CartProducts array. */
+
+        setProducts(CartProducts);
       } catch (err) {}
     };
     getProducts();
@@ -59,7 +62,7 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {cat
-        ? CartProducts.map((item) => <Product item={item} key={item.id} />)
+        ? products.map((item) => <Product item={item} key={item.id} />)
         : products
             .slice(0, 8)
             .map((item) => <Product item={item} key={item.id} />)}

@@ -5,11 +5,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { CartProducts } from "../data";
 
 const Container = styled.div``;
 
@@ -122,8 +123,9 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  // const location = useLocation();
+  // const id = location.pathname.split("/")[2];
+  const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
@@ -133,8 +135,11 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);
+        // const res = await publicRequest.get("/products/find/" + id);
+        const findOne = CartProducts.find((item) => item.id === id);
+        if (findOne) {
+          setProduct(findOne);
+        }
       } catch {}
     };
     getProduct();
@@ -151,9 +156,11 @@ const Product = () => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
   };
+
   return (
     <Container>
       <Navbar />
+
       <Announcement />
       <Wrapper>
         <ImgContainer>
@@ -162,7 +169,7 @@ const Product = () => {
         <InfoContainer>
           <Title>{product.title}</Title>
           <Desc>{product.desc}</Desc>
-          <Price>$ {product.price}</Price>
+          <Price> {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
@@ -176,6 +183,7 @@ const Product = () => {
                 {product.size?.map((s) => (
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
+                <FilterSizeOption>{product.sizing}</FilterSizeOption>
               </FilterSize>
             </Filter>
           </FilterContainer>
