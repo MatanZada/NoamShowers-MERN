@@ -31,7 +31,7 @@ const Products = ({ cat, filters, sort }) => {
     };
     getProducts();
   }, [cat]);
-
+  <h1>1</h1>;
   useEffect(() => {
     cat &&
       setFilteredProducts(
