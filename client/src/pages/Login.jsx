@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -67,21 +69,27 @@ const Error = styled.span`
   color: red;
 `;
 
-const Login = () => {
+const Login = ({ redirect }) => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, values) => {
     e.preventDefault();
     try {
       const url = "http://localhost:8080/api/auth";
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       window.location = "/";
+      await login(values);
+      if (redirect) {
+        navigate(redirect);
+      }
     } catch (error) {
       if (
         error.response &&
@@ -92,6 +100,11 @@ const Login = () => {
       }
     }
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
+  console.log(user);
 
   return (
     <Container>
