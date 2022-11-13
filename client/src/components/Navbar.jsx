@@ -72,7 +72,7 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-const Navbar = () => {
+const Navbar = ({ title }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const { user } = useAuth();
 
@@ -93,20 +93,22 @@ const Navbar = () => {
           </Center>
         </NavLink>
         <Right>
-          <NavLink to="/signout" style={{ textDecoration: "none" }}>
-            <MenuItem>SIGN OUT</MenuItem>
-          </NavLink>
-
-          <>
-            <NavLink to="/login" style={{ textDecoration: "none" }}>
-              <MenuItem>SIGH IN</MenuItem>
+          {user ? (
+            <NavLink to="/signout" style={{ textDecoration: "none" }}>
+              <MenuItem>SIGN OUT</MenuItem>
             </NavLink>
+          ) : (
+            <>
+              <NavLink to="/login" style={{ textDecoration: "none" }}>
+                <h1>{title}</h1>
+                <MenuItem>SIGH IN</MenuItem>
+              </NavLink>
 
-            <NavLink to="/register" style={{ textDecoration: "none" }}>
-              <MenuItem>REGISTER</MenuItem>
-            </NavLink>
-          </>
-
+              <NavLink to="/register" style={{ textDecoration: "none" }}>
+                <MenuItem>REGISTER</MenuItem>
+              </NavLink>
+            </>
+          )}
           <NavLink to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

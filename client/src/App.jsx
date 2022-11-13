@@ -11,6 +11,7 @@ import Logout from "./pages/Logout";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
   return (
     <Routes>
       <Route exact path="/" element={<HomePage />} />

@@ -4,6 +4,9 @@ import { mobile } from "../responsive";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Navigate } from "react-router-dom";
+import formikValidateUsingJoi from "../utils/FormikValidateUsingJoi";
+import Joi from "joi";
+import { useFormik } from "formik";
 
 const Container = styled.div`
   width: 100vw;
@@ -75,6 +78,34 @@ const Login = ({ redirect }) => {
   const { user, login } = useAuth();
   const navigate = useNavigate();
 
+  const form = useFormik({
+    validateOnMount: true,
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validate: formikValidateUsingJoi({
+      email: Joi.string()
+        .min(6)
+        .max(255)
+        .required()
+        .email({ tlds: { allow: false } }),
+      password: Joi.string().min(6).max(1024).required(),
+    }),
+    async onSubmit(values) {
+      try {
+        await login(values);
+        if (redirect) {
+          navigate(redirect);
+        }
+      } catch ({ response }) {
+        if (response.status === 400) {
+          setError(response.data);
+        }
+      }
+    },
+  });
+
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
@@ -86,10 +117,6 @@ const Login = ({ redirect }) => {
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       window.location = "/";
-      await login(values);
-      if (redirect) {
-        navigate(redirect);
-      }
     } catch (error) {
       if (
         error.response &&
@@ -104,33 +131,30 @@ const Login = ({ redirect }) => {
   if (user) {
     return <Navigate to="/" />;
   }
-  console.log(user);
-
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
-        <Form onSubmit={handleSubmit}>
+        <Form noValidate autoComplete="off" onSubmit={form.handleSubmit}>
           <Input
             type="email"
-            placeholder="Email"
-            name="email"
-            onChange={handleChange}
-            value={data.email}
-            required
+            label="Email"
+            {...form.getFieldProps("email")}
+            error={form.touched.email && form.errors.email}
           />
 
           <Input
             type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-            value={data.password}
-            required
+            label="Password"
+            {...form.getFieldProps("password")}
+            error={form.touched.password && form.errors.password}
           />
           {error && <Error>Something went wrong...</Error>}
-          <Button type="submit">LOGIN</Button>
+          <Button type="submit" disabled={!form.isValid}>
+            LOGIN
+          </Button>
         </Form>
+
         <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
         <Link>CREATE A NEW ACCOUNT</Link>
       </Wrapper>
