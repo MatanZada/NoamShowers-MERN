@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const User = require("../models/User");
 const { addUser, getAllUsers } = require("../controllers/userController");
 
 const {
@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
   console.log(req.body);
 });
 
-router.get("/", (req, res) => {
+router.get("/", verifyTokenAndAuthorization, (req, res) => {
   getAllUsers()
     .then((userDate) => {
       res.json(userDate);
@@ -60,7 +60,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 //GET USER
-router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
+router.get("/find/:id", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;

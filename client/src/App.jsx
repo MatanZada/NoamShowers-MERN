@@ -8,19 +8,28 @@ import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Logout from "./pages/Logout";
-
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useAuth } from "./context/AuthContext";
+import { userRequest } from "./requestMethods";
+import UserProfile from "./components/UserProfile";
+import Navbar from "./components/Navbar";
 const App = () => {
-  const user = useSelector((state) => state.user.currentUser);
-  console.log(user);
-  return (
-    <Routes>
-      <Route exact path="/" element={<HomePage />} />
+  const userToken = useSelector((state) => state.user.currentUser);
+  const { user } = useAuth();
 
+  return (
+    <React.Fragment>
+      <Navbar />
+    <Routes>
+      
+      <Route exact path="/" element={<HomePage />} />
       <Route path="products/:category" element={<ProductList />} />
+      <Route path="profile" element={<UserProfile />} />
       <Route path="product/:id" element={<Product />} />
       <Route
         path="register"
-        element={user ? <Navigate to="/" /> : <Register />}
+        element={userToken ? <Navigate to="/" /> : <Register />}
       />
       <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
       <Route path="signout" element={<Logout redirect="/" />} />
@@ -28,6 +37,7 @@ const App = () => {
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
     </Routes>
+    </React.Fragment>
   );
 };
 
