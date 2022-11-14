@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-
 const {
   addUser,
   getAllUsers,
@@ -16,13 +15,11 @@ const {
 
 router.post("/", (req, res) => {
   let { firstName, lastName, email, password, isAdmin } = req.body;
-
   addUser(firstName, lastName, email, password, isAdmin)
     .then((userDate) => res.json(userDate))
     .catch((error) => res.json(error));
   console.log(req.body);
 });
-
 
 router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
   getOneUser(req.params.id)
@@ -34,7 +31,6 @@ router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
       res.json(err);
     });
 });
-
 router.get("/", (req, res) => {
   getAllUsers()
     .then((userDate) => {
@@ -42,7 +38,6 @@ router.get("/", (req, res) => {
     })
     .catch((error) => res.json(error));
 });
-
 //UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   if (req.body.password) {
@@ -51,7 +46,6 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       process.env.PASS_SEC
     ).toString();
   }
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -65,7 +59,6 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
@@ -75,7 +68,6 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET USER
 router.get("/find/:id", verifyToken, async (req, res) => {
   try {
@@ -86,7 +78,6 @@ router.get("/find/:id", verifyToken, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
@@ -99,13 +90,10 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET USER STATS
-
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
-
   try {
     const data = await User.aggregate([
       { $match: { createdAt: { $gte: lastYear } } },
@@ -126,5 +114,4 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 module.exports = router;

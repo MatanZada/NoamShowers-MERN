@@ -98,9 +98,7 @@ const Navbar = () => {
                 <MenuItem>SIGN OUT</MenuItem>
               </NavLink>
 
-              <MenuItem>{userData?.firstName.toUpperCase()}</MenuItem>
-              {console.log(userData.firstName)}
-              {console.log(userData.firstName)}
+              <MenuItem>{userData?.firstName}</MenuItem>
             </>
           ) : (
             <>
