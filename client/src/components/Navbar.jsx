@@ -100,6 +100,7 @@ const Navbar = () => {
 
               <MenuItem>{userData?.firstName.toUpperCase()}</MenuItem>
               {console.log(userData.firstName)}
+              {console.log(userData.firstName)}
             </>
           ) : (
             <>
