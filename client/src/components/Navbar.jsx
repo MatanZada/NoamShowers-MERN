@@ -53,7 +53,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
+  ${mobile({ fontSize: "15px", marginLeft: "5px" })}
 `;
 
 const Right = styled.div`
@@ -70,6 +70,14 @@ const MenuItem = styled.div`
   margin-left: 25px;
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+`;
+
+const CartItem = styled.div`
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 25px;
+  text-decoration: none;
+  ${mobile({ marginLeft: "5px" })}
 `;
 
 const Navbar = () => {
@@ -98,7 +106,8 @@ const Navbar = () => {
                 <MenuItem>SIGN OUT</MenuItem>
               </NavLink>
 
-              <MenuItem>{userData?.firstName}</MenuItem>
+              <MenuItem>{` ${userData?.firstName.toUpperCase()} 👋🏾`}</MenuItem>
+              {console.log(userData?.firstName)}
             </>
           ) : (
             <>
@@ -112,11 +121,11 @@ const Navbar = () => {
             </>
           )}
           <NavLink to="/cart">
-            <MenuItem>
+            <CartItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
-            </MenuItem>
+            </CartItem>
           </NavLink>
         </Right>
       </Wrapper>

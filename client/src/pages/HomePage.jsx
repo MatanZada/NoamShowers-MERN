@@ -6,12 +6,11 @@ import Products from "../components/Products";
 import Slider from "../components/Slider";
 
 const HomePage = () => {
-
   return (
     <div>
       <Slider />
       <Categories />
-      <Products />
+      {/* <Products /> */}
       <Footer />
     </div>
   );
