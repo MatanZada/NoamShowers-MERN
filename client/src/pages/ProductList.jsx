@@ -52,7 +52,6 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Navbar />
       <Title>{cat}</Title>
       <FilterContainer>
         <Filter>
