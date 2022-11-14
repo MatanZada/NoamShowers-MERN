@@ -23,6 +23,7 @@ router.post("/", (req, res) => {
   console.log(req.body);
 });
 
+
 router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
   getOneUser(req.params.id)
     .then((userDate) => {
