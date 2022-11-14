@@ -27,6 +27,7 @@ router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
   getOneUser(req.params.id)
     .then((userDate) => {
       res.json(userDate);
+      console.log(userDate);
     })
     .catch((err) => {
       res.json(err);
