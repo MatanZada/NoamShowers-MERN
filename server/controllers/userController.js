@@ -15,6 +15,14 @@ const addUser = (firstName, lastName, email, password, isAdmin) => {
   });
 };
 
+const getOneUser = (_id) => {
+  return new Promise((resolve, reject) => {
+    User.findById(_id, (err, userData) => {
+      userData ? resolve(userData) : reject(err);
+    });
+  });
+};
+
 const getAllUsers = () => {
   return new Promise((resolve, reject) => {
     User.find().then((userData) => {
@@ -25,5 +33,6 @@ const getAllUsers = () => {
 
 module.exports = {
   addUser,
+  getOneUser,
   getAllUsers,
 };

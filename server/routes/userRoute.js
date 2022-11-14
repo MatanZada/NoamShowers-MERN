@@ -1,7 +1,16 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< HEAD
 const User = require("../models/User");
 const { addUser, getAllUsers } = require("../controllers/userController");
+=======
+
+const {
+  addUser,
+  getAllUsers,
+  getOneUser,
+} = require("../controllers/userController");
+>>>>>>> 011acb3fb336be8e294c5575f3621b5bc5d195cc
 
 const {
   verifyToken,
@@ -18,7 +27,21 @@ router.post("/", (req, res) => {
   console.log(req.body);
 });
 
+<<<<<<< HEAD
 router.get("/", verifyTokenAndAuthorization, (req, res) => {
+=======
+router.get("/:id", (req, res) => {
+  getOneUser(req.params.id)
+    .then((userDate) => {
+      res.json(userDate);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.get("/", (req, res) => {
+>>>>>>> 011acb3fb336be8e294c5575f3621b5bc5d195cc
   getAllUsers()
     .then((userDate) => {
       res.json(userDate);

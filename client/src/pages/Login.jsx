@@ -117,6 +117,7 @@ const Login = ({ redirect }) => {
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       window.location = "/";
+      // debugger;
     } catch (error) {
       if (
         error.response &&
