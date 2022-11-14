@@ -74,8 +74,7 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const { user } = useAuth();
-
+  const { user, userData } = useAuth();
 
   return (
     <Container>
@@ -95,21 +94,18 @@ const Navbar = () => {
         <Right>
           {user ? (
             <>
-                 <NavLink to="/signout" style={{ textDecoration: "none" }}>
-              <MenuItem>SIGN OUT</MenuItem>
-            </NavLink>
+              <NavLink to="/signout" style={{ textDecoration: "none" }}>
+                <MenuItem>SIGN OUT</MenuItem>
+              </NavLink>
 
-            <MenuItem>
-          
-            </MenuItem> 
+              <MenuItem>{userData?.firstName}</MenuItem>
             </>
-
-          )  : (
+          ) : (
             <>
               <NavLink to="/login" style={{ textDecoration: "none" }}>
                 <MenuItem>SIGH IN</MenuItem>
               </NavLink>
-               
+
               <NavLink to="/register" style={{ textDecoration: "none" }}>
                 <MenuItem>REGISTER</MenuItem>
               </NavLink>
