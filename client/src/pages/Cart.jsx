@@ -194,11 +194,8 @@ const Cart = () => {
       );
     }, 0);
   }, [cart]);
-
   return (
     <Container>
-      <Navbar />
-      <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Bottom>

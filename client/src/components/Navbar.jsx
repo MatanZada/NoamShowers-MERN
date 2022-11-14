@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
   height: 60px;
@@ -73,6 +74,8 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const { user, userData } = useAuth();
+
   return (
     <Container>
       <Wrapper>
@@ -89,14 +92,27 @@ const Navbar = () => {
           </Center>
         </NavLink>
         <Right>
-          <NavLink to="/register" style={{ textDecoration: "none" }}>
-            <MenuItem>REGISTER</MenuItem>
-          </NavLink>
+          {user ? (
+            <>
+              <NavLink to="/signout" style={{ textDecoration: "none" }}>
+                <MenuItem>SIGN OUT</MenuItem>
+              </NavLink>
 
-          <NavLink to="/login" style={{ textDecoration: "none" }}>
-            <MenuItem>SIGH IN</MenuItem>
-          </NavLink>
+              <MenuItem>{userData?.firstName.toUpperCase()}</MenuItem>
+              {console.log(userData.firstName)}
+              {console.log(userData.firstName)}
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem>SIGH IN</MenuItem>
+              </NavLink>
 
+              <NavLink to="/register" style={{ textDecoration: "none" }}>
+                <MenuItem>REGISTER</MenuItem>
+              </NavLink>
+            </>
+          )}
           <NavLink to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
