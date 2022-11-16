@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Announcement from "../components/Announcement";
@@ -11,6 +11,7 @@ import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
 import { useMemo } from "react";
+import { removeFromCart } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -166,6 +167,11 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
+  };
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -206,12 +212,6 @@ const Cart = () => {
     }
   };
 
-  const handleRemoveItem = () => {
-    console.log(cart);
-    cart.products = cart.products.filter((cartItem) => cartItem.id !== "");
-    console.log(cart);
-  };
-
   return (
     <Container>
       <Wrapper>
@@ -240,8 +240,7 @@ const Cart = () => {
                     <Add onClick={() => handleQuantity("inc")} />
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove onClick={() => handleQuantity("dec")} />
-
-                    <DeleteIcon onClick={() => handleRemoveItem()} />
+                    <DeleteIcon onClick={() => handleRemoveFromCart(product)} />
                   </ProductAmountContainer>
                   {product.price && (
                     <ProductPrice>
