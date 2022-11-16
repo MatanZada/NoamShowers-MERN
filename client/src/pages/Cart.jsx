@@ -1,6 +1,7 @@
 import { Add, Remove } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -106,6 +107,7 @@ const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const ProductAmount = styled.div`
@@ -160,6 +162,7 @@ const Button = styled.button`
 
 const Cart = () => {
   const [showItem, setShowItem] = useState(false);
+  const [quantitys, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   let navigate = useNavigate();
@@ -194,6 +197,21 @@ const Cart = () => {
       );
     }, 0);
   }, [cart]);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantitys > 1 && setQuantity(quantitys - 1);
+    } else {
+      setQuantity(quantitys + 1);
+    }
+  };
+
+  const handleRemoveItem = () => {
+    console.log(cart);
+    cart.products = cart.products.filter((cartItem) => cartItem.id !== "");
+    console.log(cart);
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -219,9 +237,11 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() => handleQuantity("inc")} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={() => handleQuantity("dec")} />
+
+                    <DeleteIcon onClick={() => handleRemoveItem()} />
                   </ProductAmountContainer>
                   {product.price && (
                     <ProductPrice>
