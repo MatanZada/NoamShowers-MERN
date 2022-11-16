@@ -21,22 +21,21 @@ const App = () => {
   return (
     <React.Fragment>
       <Navbar />
-    <Routes>
-      
-      <Route exact path="/" element={<HomePage />} />
-      <Route path="products/:category" element={<ProductList />} />
-      <Route path="profile" element={<UserProfile />} />
-      <Route path="product/:id" element={<Product />} />
-      <Route
-        path="register"
-        element={userToken ? <Navigate to="/" /> : <Register />}
-      />
-      <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
-      <Route path="signout" element={<Logout redirect="/" />} />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="products/:category" element={<ProductList />} />
+        <Route path="profile" element={<UserProfile />} />
+        <Route path="product/:id" element={<Product />} />
+        <Route
+          path="register"
+          element={userToken ? <Navigate to="/" /> : <Register />}
+        />
+        <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="signout" element={<Logout redirect="/" />} />
 
-      <Route path="cart" element={<Cart />} />
-      <Route path="success" element={<Success />} />
-    </Routes>
+        <Route path="cart" element={<Cart />} />
+        <Route path="success" element={<Success />} />
+      </Routes>
     </React.Fragment>
   );
 };
