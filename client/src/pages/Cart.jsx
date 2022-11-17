@@ -11,7 +11,13 @@ import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
 import { useMemo } from "react";
-import { removeFromCart, clearCart } from "../redux/cartRedux";
+import {
+  addToCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+  removeFromCart,
+} from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -178,6 +184,12 @@ const Cart = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
   };
@@ -250,9 +262,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add onClick={() => handleQuantity("inc")} />
+                    <Add onClick={() => handleAddToCart(product)} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove onClick={() => handleQuantity("dec")} />
+                    <Remove onClick={() => handleDecreaseCart(product)} />
                     <DeleteIcon onClick={() => handleRemoveFromCart(product)} />
                   </ProductAmountContainer>
                   {product.price && (
