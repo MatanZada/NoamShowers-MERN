@@ -14,10 +14,11 @@ import { useAuth } from "./context/AuthContext";
 import { userRequest } from "./requestMethods";
 import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
+import { itemsWithId } from "./data";
 const App = () => {
   const userToken = useSelector((state) => state.user.currentUser);
   const { user } = useAuth();
-
+  console.log(itemsWithId);
   return (
     <React.Fragment>
       <Navbar />
@@ -32,7 +33,6 @@ const App = () => {
         />
         <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="signout" element={<Logout redirect="/" />} />
-
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
       </Routes>

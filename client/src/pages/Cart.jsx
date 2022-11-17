@@ -11,7 +11,13 @@ import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
 import { useMemo } from "react";
-import { removeFromCart } from "../redux/cartRedux";
+import {
+  addToCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+  removeFromCart,
+} from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -149,6 +155,14 @@ const SummaryItem = styled.div`
   font-size: ${(props) => props.type === "total" && "24px"};
 `;
 
+const ClearButton = styled.button`
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
@@ -159,6 +173,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Cart = () => {
@@ -169,8 +184,17 @@ const Cart = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
+  };
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
   const onToken = (token) => {
@@ -216,6 +240,7 @@ const Cart = () => {
     <Container>
       <Wrapper>
         <Title>YOUR BAG</Title>
+        <ClearButton onClick={() => handleClearCart()}>CLEAR CART</ClearButton>
         <Bottom>
           <Info>
             {cart.products.map((product) => (
@@ -237,9 +262,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add onClick={() => handleQuantity("inc")} />
+                    <Add onClick={() => handleAddToCart(product)} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove onClick={() => handleQuantity("dec")} />
+                    <Remove onClick={() => handleDecreaseCart(product)} />
                     <DeleteIcon onClick={() => handleRemoveFromCart(product)} />
                   </ProductAmountContainer>
                   {product.price && (
