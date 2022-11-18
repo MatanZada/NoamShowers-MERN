@@ -1,20 +1,44 @@
 [
   {
-    "id": 1,
-    "name": "shower",
-    "price": 100,
-    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/Vitra_0256_copy-1.jpg"
+    "id": "2",
+    "title": "Royal shower",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/06/62570_sol.jpg",
+    "sizing": "200*120",
+    "price": "$10.00"
   },
   {
-    "id": 2,
-    "name": "shower22",
-    "price": 222,
-    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/304_Versus_-_Bathroom_-_White-copy.jpg"
+    "id": "3",
+    "title": "Royal shower2",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/06/62582_1-1.jpg",
+    "sizing": "180*140",
+    "price": "$12.00"
   },
   {
-    "id": 3,
-    "name": "shower333",
-    "price": 333,
-    "img": "https://www.el-gal.co.il/wp-content/uploads/2018/06/Memoria_Elements_-_Set_02_-_01_Main_Set_Revised-1.jpg"
+    "id": "4",
+    "title": "Royal shower3",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/06/64101.jpg",
+    "sizing": "110*80",
+    "price": "$13.00"
+  },
+  {
+    "id": "5",
+    "title": "Royal shower4",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/06/64079.jpg",
+    "sizing": "310*220",
+    "price": "$14.00"
+  },
+  {
+    "id": "6",
+    "title": "Royal shower5",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/07/64110.jpg",
+    "sizing": "145*92",
+    "price": "$15.00"
+  },
+  {
+    "id": "7",
+    "title": "Royal shower6",
+    "img": "https://www.el-gal.co.il/wp-content/uploads/2019/06/64041.jpg",
+    "sizing": "100*50",
+    "price": "$16.00"
   }
 ]
