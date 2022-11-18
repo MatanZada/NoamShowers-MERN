@@ -184,6 +184,10 @@ const Cart = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };

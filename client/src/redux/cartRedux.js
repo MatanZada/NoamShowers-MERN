@@ -22,13 +22,13 @@ const cartSlice = createSlice({
       if (existingIndex >= 0) {
         state.products[existingIndex] = {
           ...state.products[existingIndex],
-          cartQuantity: state.products[existingIndex].cartQuantity + 1,
+          quantity: state.products[existingIndex].quantity + 1,
         };
         toast.info("Increased product quantity", {
           position: "bottom-left",
         });
       } else {
-        let tempProductItem = { ...action.payload, cartQuantity: 1 };
+        let tempProductItem = { ...action.payload, quantity: 1 };
         state.products.push(tempProductItem);
         toast.success("Product added to cart", {
           position: "bottom-left",
