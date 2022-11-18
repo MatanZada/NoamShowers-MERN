@@ -41,13 +41,13 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
 
-      if (state.products[itemIndex].cartQuantity > 1) {
-        state.products[itemIndex].cartQuantity -= 1;
+      if (state.products[itemIndex].quantity > 1) {
+        state.products[itemIndex].quantity -= 1;
 
         toast.info("Decreased product quantity", {
           position: "bottom-left",
         });
-      } else if (state.products[itemIndex].cartQuantity === 1) {
+      } else if (state.products[itemIndex].quantity === 1) {
         const nextproducts = state.products.filter(
           (item) => item.id !== action.payload.id
         );
