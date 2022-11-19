@@ -7,6 +7,8 @@ const cartSlice = createSlice({
     products: [],
     quantity: 0,
     total: 0,
+    cartTotalQuantity: 0,
+    cartTotalAmount: 0,
   },
   reducers: {
     addProduct: (state, action) => {
@@ -28,8 +30,9 @@ const cartSlice = createSlice({
           position: "bottom-left",
         });
       } else {
-        let tempProductItem = { ...action.payload, quantity: 1 };
-        state.products.push(tempProductItem);
+        state.quantity += 1;
+        state.products.push(action.payload);
+        state.total += action.payload.price * action.payload.quantity;
         toast.success("Product added to cart", {
           position: "bottom-left",
         });

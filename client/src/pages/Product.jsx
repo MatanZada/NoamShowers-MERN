@@ -8,8 +8,10 @@ import { mobile } from "../responsive";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartProducts } from "../data";
+import { useNavigate } from "react-router-dom";
+import { addToCart } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -124,12 +126,19 @@ const Button = styled.button`
 const Product = () => {
   // const location = useLocation();
   // const id = location.pathname.split("/")[2];
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart({ ...product, quantity, color, size }));
+    navigate("/cart");
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -190,7 +199,9 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            <Button onClick={() => handleAddToCart(product)}>
+              ADD TO CART
+            </Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
