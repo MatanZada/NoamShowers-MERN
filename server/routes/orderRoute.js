@@ -14,9 +14,15 @@ const {
 } = require("./verifyToken");
 
 router.post("/", (req, res) => {
-  let { orderId, userId, products, amount, address, status } = req.body;
-  insertOrder(orderId, userId, products, amount, address, status)
-    .then((orderData) => res.json(orderData))
+  let { userId, address, cart } = req.body;
+  const total = cart.products
+    .map((p) => parseInt(p.price.replace("$", "")) * p.quantity)
+    .reduce((x, y) => x + y);
+  insertOrder(cart, userId, address, total)
+    .then((orderData) => {
+      console.log(orderData);
+      res.json(orderData);
+    })
     .catch((err) => console.log(err));
 });
 

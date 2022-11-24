@@ -1,14 +1,16 @@
+const Cart = require("../models/Cart");
 let Order = require("../models/Order");
 
-let insertOrder = (userId, products, amount, address, status) => {
+let insertOrder = (cart, userId, address, total) => {
   return new Promise((resolve, reject) => {
     let order = new Order({
       userId,
-      products,
-      amount,
+      products: cart.products,
+      amount: total,
       address,
-      status,
     });
+
+    Cart.deleteOne({ _id: cart._id });
     order.save((err, orderData) => {
       orderData ? resolve(orderData) : reject(err);
     });
