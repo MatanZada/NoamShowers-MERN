@@ -6,7 +6,7 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
@@ -18,6 +18,7 @@ import {
   getTotals,
   removeFromCart,
 } from "../redux/cartRedux";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div``;
 
@@ -180,7 +181,7 @@ const Cart = () => {
   const [showItem, setShowItem] = useState(false);
   const [quantitys, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart);
-  const [stripeToken, setStripeToken] = useState(null);
+  const { user, userData } = useAuth();
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -201,25 +202,29 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
+  const makeRequest = useCallback(async () => {
+    try {
+      const paymentRes = await userRequest.post("checkout/payment", {
+        uid: userData._id,
+      });
 
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: 500,
-        });
-        navigate("/success", {
-          stripeData: res.data,
-          products: cart,
-        });
-      } catch {}
-    };
-    stripeToken && makeRequest();
-  }, [stripeToken, cart.total, cart, navigate]);
+      const createOrder = async () => {
+        try {
+          const res = await userRequest.post("orders", {
+            userId: userData._id,
+            cart,
+            address: paymentRes.data.address,
+          });
+          navigate("/success", { state: { id: res.data._id } });
+        } catch (e) {
+          alert(e);
+        }
+      };
+      await createOrder();
+    } catch (e) {
+      alert(e);
+    }
+  }, [showItem, cart, userData]);
 
   const totalPrice = useMemo(() => {
     return cart.products.reduce((prev, next) => {
@@ -299,15 +304,9 @@ const Cart = () => {
               <SummaryItemPrice>{totalPrice + "$"}</SummaryItemPrice>
             </SummaryItem>
             <div className="App">
-              {showItem ? (
-                <StripeContainer />
-              ) : (
-                <>
-                  <Button onClick={() => setShowItem(true)}>
-                    CHECKOUT NOW
-                  </Button>
-                </>
-              )}
+              <>
+                <Button onClick={() => makeRequest()}>CHECKOUT NOW</Button>
+              </>
             </div>
           </Summary>
         </Bottom>
