@@ -7,6 +7,7 @@ const {
   getAllProducts,
   updateProduct,
   deleteProduct,
+  getAllProductData,
 } = require("../controllers/productController");
 
 const {
@@ -34,7 +35,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  getAllProducts()
+  getAllProductData()
     .then((productDate) => {
       res.json(productDate);
     })

@@ -38,9 +38,13 @@ const Option = styled.option``;
 
 const ProductList = () => {
   const location = useLocation();
-  const cat = location.pathname.split("/")[2];
+  const item = location.state
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
+
+  if(!item) {
+    return <div>Loading...</div>
+  }
 
   const handleFilters = (e) => {
     const value = e.target.value;
@@ -52,7 +56,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Title>{cat}</Title>
+      <Title>{item.title}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -80,7 +84,7 @@ const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products cat={cat} filters={filters} sort={sort} />
+      <Products cat={item} filters={filters} sort={sort} />
       <Footer />
     </Container>
   );

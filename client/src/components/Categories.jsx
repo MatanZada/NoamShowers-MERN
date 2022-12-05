@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { categories } from "../data";
 import { mobile } from "../responsive";
 import CategoryItem from "./CategoryItem";
+import { useSelector } from "react-redux";
+import React from "react";
 
 const Container = styled.div`
   display: flex;
@@ -12,11 +13,10 @@ const Container = styled.div`
 `;
 
 const Categories = () => {
+  const categories = useSelector(state => state.itemsData.categories)
   return (
     <Container>
-      {categories.map((item) => (
-        <CategoryItem item={item} key={item.id} />
-      ))}
+      {React.Children.toArray(categories.map(category => <CategoryItem item={category} />))}
     </Container>
   );
 };

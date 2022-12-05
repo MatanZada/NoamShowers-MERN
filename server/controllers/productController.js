@@ -1,4 +1,6 @@
+const Category = require("../models/Category");
 const Product = require("../models/Product");
+const SliderItem = require("../models/SliderItem");
 
 const addProduct = (
   title,
@@ -37,9 +39,28 @@ const getProduct = (_id) => {
 
 const getAllProducts = () => {
   return new Promise((resolve, reject) => {
+
+
     Product.find().then((productData) => {
       productData ? resolve(productData) : reject(err);
     });
+  });
+};
+
+const getAllProductData = async () => {
+  return await new Promise(async (resolve, reject) => {
+    try {
+      const categories = await Category.find().exec()
+      const products = await Product.find().exec()
+      const sliderItems = await SliderItem.find().exec()
+      return resolve({
+        categories,
+        products,
+        sliderItems
+      })
+    } catch (e) {
+      reject(e)
+    }
   });
 };
 
@@ -85,6 +106,7 @@ module.exports = {
   addProduct,
   getProduct,
   getAllProducts,
+  getAllProductData,
   updateProduct,
   deleteProduct,
 };

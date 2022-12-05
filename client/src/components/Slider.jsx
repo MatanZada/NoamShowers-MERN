@@ -1,9 +1,9 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { sliderItems } from "../data";
 import React, { useState } from "react";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
@@ -86,13 +86,14 @@ const Slider = () => {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
+  const sliderItems = useSelector(state => state.itemsData.sliderItems)
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        {sliderItems.map((item) => (
+        { sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
               <Image src={item.img} />
@@ -104,7 +105,7 @@ const Slider = () => {
               <Button>SHOW NOW</Button>
             </InfoContainer>
           </Slide>
-        ))}
+        ))  }
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />

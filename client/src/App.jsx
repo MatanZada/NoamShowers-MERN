@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Logout from "./pages/Logout";
 import React, { useEffect } from "react";
 import axios from "axios";
@@ -14,11 +14,21 @@ import { useAuth } from "./context/AuthContext";
 import { userRequest } from "./requestMethods";
 import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
-import { itemsWithId } from "./data";
+import { productsFetch } from "./redux/productSlice";
 const App = () => {
   const userToken = useSelector((state) => state.user.currentUser);
   const { user } = useAuth();
-  console.log(itemsWithId);
+  const dispatch = useDispatch()
+
+  const products = useSelector(state => state.itemsData.items) 
+  useEffect(() => {
+    dispatch(productsFetch())
+
+    setInterval(() => {
+      console.log("This is the items:")
+      console.log(products)
+    }, 5000)
+  },[])
   return (
     <React.Fragment>
       <Navbar />

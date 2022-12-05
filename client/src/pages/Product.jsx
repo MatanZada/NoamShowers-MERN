@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch, useSelector } from "react-redux";
-import { CartProducts } from "../data";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/cartRedux";
 
@@ -134,23 +133,18 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
-
+  const products = useSelector(state => state.itemsData.items)
   const handleAddToCart = (product) => {
     dispatch(addToCart({ ...product, quantity, color, size }));
     navigate("/cart");
   };
 
+
   useEffect(() => {
-    const getProduct = async () => {
-      try {
-        // const res = await publicRequest.get("/products/find/" + id);
-        const findOne = CartProducts.find((item) => item.id === id);
-        if (findOne) {
-          setProduct(findOne);
-        }
-      } catch {}
-    };
-    getProduct();
+    const findOne = products.find((item) => item.id === id);
+    if (findOne) {
+      setProduct(findOne);
+    }
   }, [id]);
 
   const handleQuantity = (type) => {
