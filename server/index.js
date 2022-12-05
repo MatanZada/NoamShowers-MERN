@@ -33,28 +33,36 @@ app.use("/api/checkout", stripeRoute);
 
 const sliderItems = [
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     img: "https://www.el-gal.co.il/wp-content/uploads/2018/06/Vitra_0256_copy-1.jpg",
     title: "POPULAR SALE",
     desc: "Do not compromise on quality! Get a 10% discount on the shower,bathroom cabinet and shower accessories",
     bg: "EEEEEE",
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     img: "https://www.el-gal.co.il/wp-content/uploads/2018/06/304_Versus_-_Bathroom_-_White-copy.jpg",
     title: "POPULAR SALE",
     desc: "Do not compromise on quality! Get a 10% discount on the shower,bathroom cabinet and shower accessories",
     bg: "EEEEEE",
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     img: "https://www.el-gal.co.il/wp-content/uploads/2018/06/Memoria_Elements_-_Set_02_-_01_Main_Set_Revised-1.jpg",
     title: "POPULAR SALE",
     desc: "Do not compromise on quality! Get a 10% discount on the shower,bathroom cabinet and shower accessories",
     bg: "EEEEEE",
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     img: "https://www.el-gal.co.il/wp-content/uploads/2018/06/439_Bern_-_Bathroom_Set_01_-_02_Ambiente.jpg",
     title: "POPULAR SALE",
     desc: "Do not compromise on quality! Get a 10% discount on the shower,bathroom cabinet and shower accessories",
@@ -78,49 +86,60 @@ const categories = [
 
 const CartProducts = [
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/62570_sol.jpg",
     size: "200*120",
-    price: 10.0
+    price: 10.0,
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower2",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/62582_1-1.jpg",
     size: "180*140",
-    price: 12.0
+    price: 12.0,
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower3",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64101.jpg",
     size: "110*80",
-    price: 13.0
+    price: 13.0,
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower4",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64079.jpg",
     size: "310*220",
-    price: 14.0
+    price: 14.0,
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower5",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/07/64110.jpg",
     size: "145*92",
-    price: 15.0
+    price: 15.0,
   },
   {
-    color: 'red', inStock: true, categories: [],
+    color: "black",
+    inStock: true,
+    categories: [],
     title: "Royal shower",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64041.jpg",
     size: "100*50",
-    price: 16.0
+    price: 16.0,
   },
 ];
-
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/final_project")
@@ -133,12 +152,11 @@ mongoose
       // create items in database
 
       // sliderItems.map(item => new SliderItem(item)).forEach(async m => await m.save())
-      // categories.map(category => new Category(category)).forEach(async m => await m.save()) 
-      // CartProducts.map(product => new Product(product)).forEach(async m => await m.save()) 
+      // categories.map(category => new Category(category)).forEach(async m => await m.save())
+      // CartProducts.map(product => new Product(product)).forEach(async m => await m.save())
       // logger.info(
       //   `Saved successfully`
       // );
-
     });
   })
   .catch((err) => console.error(err));

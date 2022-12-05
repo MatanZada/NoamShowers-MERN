@@ -38,12 +38,12 @@ const Option = styled.option``;
 
 const ProductList = () => {
   const location = useLocation();
-  const item = location.state
+  const item = location.state;
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 
-  if(!item) {
-    return <div>Loading...</div>
+  if (!item) {
+    return <div>Loading...</div>;
   }
 
   const handleFilters = (e) => {
