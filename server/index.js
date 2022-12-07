@@ -89,7 +89,7 @@ const CartProducts = [
     color: "black",
     inStock: true,
     categories: [],
-    title: "Royal shower",
+    title: "Bathroom Sink",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/62570_sol.jpg",
     size: "200*120",
     price: 10.0,
@@ -98,7 +98,7 @@ const CartProducts = [
     color: "black",
     inStock: true,
     categories: [],
-    title: "Royal shower2",
+    title: "Bathroom Sink",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/62582_1-1.jpg",
     size: "180*140",
     price: 12.0,
@@ -107,7 +107,7 @@ const CartProducts = [
     color: "black",
     inStock: true,
     categories: [],
-    title: "Royal shower3",
+    title: "Bathroom Sink",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64101.jpg",
     size: "110*80",
     price: 13.0,
@@ -116,26 +116,63 @@ const CartProducts = [
     color: "black",
     inStock: true,
     categories: [],
-    title: "Royal shower4",
+    title: "Bathroom Sink",
     img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64079.jpg",
     size: "310*220",
     price: 14.0,
   },
+
   {
     color: "black",
     inStock: true,
     categories: [],
-    title: "Royal shower5",
-    img: "https://www.el-gal.co.il/wp-content/uploads/2019/07/64110.jpg",
-    size: "145*92",
-    price: 15.0,
+    title: "Royal shower",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2017/04/%D7%9E%D7%A7%D7%9C%D7%97%D7%95%D7%A0%D7%99%D7%9D.jpeg",
+    size: "100*50",
+    price: 16.0,
   },
   {
     color: "black",
     inStock: true,
     categories: [],
     title: "Royal shower",
-    img: "https://www.el-gal.co.il/wp-content/uploads/2019/06/64041.jpg",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2018/07/81778-with-deco-background-1-1000x715.jpg",
+    size: "100*50",
+    price: 16.0,
+  },
+  {
+    color: "black",
+    inStock: true,
+    categories: [],
+    title: "Bathroom Sink",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2018/07/wj-6-1000x665.jpg",
+    size: "100*50",
+    price: 16.0,
+  },
+  {
+    color: "black",
+    inStock: true,
+    categories: [],
+    title: "Bathroom Sink",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2018/07/wj-10-2-247x296.jpg",
+    size: "100*50",
+    price: 16.0,
+  },
+  {
+    color: "black",
+    inStock: true,
+    categories: [],
+    title: "Sink Faucet",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2019/07/A4255936VUK.jpg",
+    size: "100*50",
+    price: 16.0,
+  },
+  {
+    color: "black",
+    inStock: true,
+    categories: [],
+    title: "Sink Faucet",
+    img: "https://www.el-gal.co.il/wp-content/uploads/2019/07/A42559.jpg",
     size: "100*50",
     price: 16.0,
   },
@@ -151,12 +188,16 @@ mongoose
 
       // create items in database
 
-      // sliderItems.map(item => new SliderItem(item)).forEach(async m => await m.save())
-      // categories.map(category => new Category(category)).forEach(async m => await m.save())
-      // CartProducts.map(product => new Product(product)).forEach(async m => await m.save())
-      // logger.info(
-      //   `Saved successfully`
+      // sliderItems
+      //   .map((item) => new SliderItem(item))
+      //   .forEach(async (m) => await m.save());
+      // categories
+      //   .map((category) => new Category(category))
+      //   .forEach(async (m) => await m.save());
+      // CartProducts.map((product) => new Product(product)).forEach(
+      //   async (m) => await m.save()
       // );
+      // logger.info(`Saved successfully`);
     });
   })
   .catch((err) => console.error(err));
