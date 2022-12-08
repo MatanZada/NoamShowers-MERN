@@ -18,17 +18,17 @@ import { productsFetch } from "./redux/productSlice";
 const App = () => {
   const userToken = useSelector((state) => state.user.currentUser);
   const { user } = useAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const products = useSelector(state => state.itemsData.items) 
+  const products = useSelector((state) => state.itemsData.items);
   useEffect(() => {
-    dispatch(productsFetch())
+    dispatch(productsFetch());
 
     setInterval(() => {
-      console.log("This is the items:")
-      console.log(products)
-    }, 5000)
-  },[])
+      console.log("This is the items:");
+      console.log(products);
+    }, 5000);
+  }, []);
   return (
     <React.Fragment>
       <Navbar />
