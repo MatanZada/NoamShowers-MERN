@@ -9,25 +9,17 @@ import Success from "./pages/Success";
 import { useDispatch, useSelector } from "react-redux";
 import Logout from "./pages/Logout";
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useAuth } from "./context/AuthContext";
-import { userRequest } from "./requestMethods";
 import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
 import { productsFetch } from "./redux/productSlice";
 const App = () => {
-  const userToken = useSelector((state) => state.user.currentUser);
-  const { user } = useAuth();
+  const { userData } = useAuth()
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.itemsData.items);
   useEffect(() => {
     dispatch(productsFetch());
-
-    setInterval(() => {
-      console.log("This is the items:");
-      console.log(products);
-    }, 5000);
   }, []);
   return (
     <React.Fragment>
@@ -39,9 +31,9 @@ const App = () => {
         <Route path="product/:id" element={<Product />} />
         <Route
           path="register"
-          element={userToken ? <Navigate to="/" /> : <Register />}
+          element={userData ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="login" element={userData ? <Navigate to="/" /> : <Login />} />
         <Route path="signout" element={<Logout redirect="/" />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />

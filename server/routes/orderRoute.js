@@ -6,21 +6,23 @@ const {
   findOrderById,
   updateOrderById,
 } = require("../controllers/orderController");
+const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 
 const {
   verifyToken,
-  verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 
 router.post("/", (req, res) => {
   let { userId, address, cart } = req.body;
   const total = cart.products
-    .map((p) => parseInt(p.price.replace("$", "")) * p.quantity)
+    .map((p) => p.price * p.quantity)
     .reduce((x, y) => x + y);
   insertOrder(cart, userId, address, total)
-    .then((orderData) => {
+    .then(async (orderData) => {
       console.log(orderData);
+      await Cart.deleteOne({ userId }).exec()
       res.json(orderData);
     })
     .catch((err) => console.log(err));
@@ -93,9 +95,9 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET USER ORDERS
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find", verifyToken, async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.find({ userId: req.user._id });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);

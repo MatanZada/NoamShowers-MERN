@@ -12,11 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
         <AuthProvider>
           <App />
-          </AuthProvider>
-        </PersistGate>
+        </AuthProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

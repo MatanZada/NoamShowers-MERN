@@ -9,10 +9,10 @@ const {
   deleteProduct,
   getAllProductData,
 } = require("../controllers/productController");
+const Product = require("../models/Product");
 
 const {
   verifyToken,
-  verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 

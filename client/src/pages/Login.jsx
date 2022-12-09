@@ -72,10 +72,10 @@ const Error = styled.span`
   color: red;
 `;
 
-const Login = ({ redirect }) => {
+const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const { user, login } = useAuth();
+  const { userData, login } = useAuth();
   const navigate = useNavigate();
 
   const form = useFormik({
@@ -95,13 +95,9 @@ const Login = ({ redirect }) => {
     async onSubmit(values) {
       try {
         await login(values);
-        if (redirect) {
-          navigate(redirect);
-        }
-      } catch ({ response }) {
-        if (response.status === 400) {
-          setError(response.data);
-        }
+      } catch (error) {
+        console.log(error)
+        setError(error);
       }
     },
   });
@@ -129,7 +125,7 @@ const Login = ({ redirect }) => {
     }
   };
 
-  if (user) {
+  if (userData) {
     return <Navigate to="/" />;
   }
   return (

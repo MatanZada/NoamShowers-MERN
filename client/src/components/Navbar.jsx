@@ -82,8 +82,7 @@ const CartItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const { user, userData } = useAuth();
-
+  const {  userData } = useAuth();
   return (
     <Container>
       <Wrapper>
@@ -100,14 +99,12 @@ const Navbar = () => {
           </Center>
         </NavLink>
         <Right>
-          {user ? (
+          {userData ? (
             <>
               <NavLink to="/signout" style={{ textDecoration: "none" }}>
                 <MenuItem>SIGN OUT</MenuItem>
               </NavLink>
-
               <MenuItem>{` ${userData?.firstName.toUpperCase()} 👋🏾`}</MenuItem>
-              {console.log(userData?.firstName)}
             </>
           ) : (
             <>

@@ -4,10 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 //If the user is not logged in, redirect to the sign in page , @returns The children of the component.
 
 const ProtectedRoute = ({ children, onlyBiz = false }) => {
-  const { user } = useAuth();
-  console.log(user);
+  const { userData } = useAuth();
 
-  if (!user || (onlyBiz && !user.biz)) {
+  if (!userData || (onlyBiz && !userData.biz)) {
     return <Navigate to="/signin" />;
   }
   return children;

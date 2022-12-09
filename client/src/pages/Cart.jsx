@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useCallback, useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import StripeContainer from "../components/StripeContainer";
 import { useMemo } from "react";
@@ -19,6 +18,7 @@ import {
   removeFromCart,
 } from "../redux/cartRedux";
 import { useAuth } from "../context/AuthContext";
+import httpService from "../services/httpService";
 
 const Container = styled.div``;
 
@@ -204,17 +204,18 @@ const Cart = () => {
 
   const makeRequest = useCallback(async () => {
     try {
-      const paymentRes = await userRequest.post("checkout/payment", {
+      const paymentRes = await httpService.post("checkout/payment", {
         uid: userData._id,
       });
 
       const createOrder = async () => {
         try {
-          const res = await userRequest.post("orders", {
+          const res = await httpService.post("orders", {
             userId: userData._id,
             cart,
             address: paymentRes.data.address,
           });
+          handleClearCart()
           navigate("/success", { state: { id: res.data._id } });
         } catch (e) {
           alert(e);
@@ -228,12 +229,7 @@ const Cart = () => {
 
   const totalPrice = useMemo(() => {
     return cart.products.reduce((prev, next) => {
-      return (
-        prev +
-        (next.price
-          ? Number(next.price.replace("$", "")) * Number(next.quantity)
-          : 0)
-      );
+      return (prev + next.price * next.quantity);
     }, 0);
   }, [cart]);
 
@@ -278,7 +274,7 @@ const Cart = () => {
                   </ProductAmountContainer>
                   {product.price && (
                     <ProductPrice>
-                      {Number(product.price.replace("$", "")) *
+                      {product.price *
                         Number(product.quantity) +
                         "$"}
                     </ProductPrice>

@@ -9,7 +9,6 @@ const {
 
 const {
   verifyToken,
-  verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 
@@ -21,15 +20,10 @@ router.post("/", (req, res) => {
   console.log(req.body);
 });
 
-router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
-  getOneUser(req.params.id)
-    .then((userDate) => {
-      res.json(userDate);
-      console.log(userDate);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get("/:id", verifyToken, (req, res) => {
+  getOneUser(req.user._id)
+    .then(u => res.json(u))
+    .catch(e => res.json(e));
 });
 router.get("/", (req, res) => {
   getAllUsers()
@@ -39,7 +33,7 @@ router.get("/", (req, res) => {
     .catch((error) => res.json(error));
 });
 //UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -60,7 +54,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 //DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
@@ -68,16 +62,18 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //GET USER
-router.get("/find/:id", verifyToken, async (req, res) => {
+router.get("/find", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.user._id);
     const { password, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;

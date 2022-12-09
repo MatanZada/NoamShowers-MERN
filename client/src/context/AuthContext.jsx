@@ -1,57 +1,49 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext, createContext } from "react";
-import { userRequest } from "../requestMethods";
 import usersService from "../services/usersService";
-
+import axios from "axios";
+import { BASE_URL } from "../requestMethods";
+import httpService from "../services/httpService";
 export const authContext = createContext(null);
 authContext.displayName = "auth-context";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(usersService.getUser());
-
-  const [userData,setUserData] = useState()
-  const refreshUser = () => {
-    setUser(usersService.getUser());
-  };
-
+  const [userData, setUserData] = useState()
+  const [token, setToken] = useState(localStorage.getItem('token'))
   const createUser = (user) => {
     return usersService.createUser(user);
   };
 
   const login = async (credentials) => {
-    const response = await usersService.loginUser(credentials);
-    refreshUser();
-    return response;
+    const token = await usersService.loginUser(credentials);
+    setToken(token)
+    await fetchUserData(localStorage.getItem('token'))
   };
+
+  const fetchUserData = async (t = token) => {
+    try {
+      const userDataResponse = await httpService.get(`users/find`, { headers: { 'x-auth-token': `Bearer ${t}` } })
+      setUserData(userDataResponse.data);
+    } catch (e) {
+      console.log(`Error: ${e}`)
+      setUserData(null)
+    }
+  }
 
   const logout = () => {
     usersService.logout();
-    refreshUser();
+    setToken(undefined)
+    setUserData(undefined)
   };
 
   useEffect(() => {
-    refreshUser();
-  }, []);
-
-  
-
-  useEffect(() => {
-    if(user) {
-      const fetchUserData = async () => {
-        try {
-            const  userDataResponse =  await userRequest.get(`users/find/${user._id}`)
-            setUserData(userDataResponse.data);
-        }catch(e) {
-          setUserData(null)
-        }
-      }
+    if (token)
       fetchUserData()
-    }
-  },[user])
+  }, [token])
 
   return (
-    <authContext.Provider value={{ createUser, login, logout, user,userData }}>
+    <authContext.Provider value={{ createUser, login, logout, userData }}>
       {children}
     </authContext.Provider>
   );
