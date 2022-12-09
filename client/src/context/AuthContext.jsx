@@ -5,11 +5,14 @@ import usersService from "../services/usersService";
 import axios from "axios";
 import { BASE_URL } from "../requestMethods";
 import httpService from "../services/httpService";
+import { useDispatch } from "react-redux";
+import { cartFetch, setUserId } from "../redux/cartRedux";
 export const authContext = createContext(null);
 authContext.displayName = "auth-context";
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState()
+  const dispatch = useDispatch()
   const [token, setToken] = useState(localStorage.getItem('token'))
   const createUser = (user) => {
     return usersService.createUser(user);
@@ -25,8 +28,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const userDataResponse = await httpService.get(`users/find`, { headers: { 'x-auth-token': `Bearer ${t}` } })
       setUserData(userDataResponse.data);
+      return userDataResponse.data
     } catch (e) {
-      console.log(`Error: ${e}`)
       setUserData(null)
     }
   }
@@ -38,8 +41,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token)
-      fetchUserData()
+    if (token) {
+      fetchUserData().then((data) => {
+        dispatch(cartFetch(data._id))
+      }).catch(console.log)
+    }
   }, [token])
 
   return (

@@ -16,6 +16,7 @@ export const productsFetch = createAsyncThunk(
       const response = await publicRequest.get("/products");
       return response.data;
     } catch (error) {
+      console.log(error)
     }
   }
 );

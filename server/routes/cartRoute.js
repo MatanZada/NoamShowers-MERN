@@ -12,15 +12,7 @@ const {
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 
-router.get("/", (req, res) => {
-  getAllProductsInCart()
-    .then((productInCart) => {
-      res.json(productInCart);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
+
 
 router.post("/", (req, res) => {
   const productToCart = req.body.productToCart;
@@ -41,30 +33,36 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+const newCart = async (req) => {
+  const newCart = new Cart(req.body);
+  return await newCart.save()
+}
+
 //CREATE
 
 router.post("/", verifyToken, async (req, res) => {
-  const newCart = new Cart(req.body);
-
   try {
-    const savedCart = await newCart.save();
+    const savedCart = await newCart(req)
     res.status(200).json(savedCart);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//UPDATE
-router.put("/:id", verifyToken, async (req, res) => {
+// UPDATE
+router.put("/:id", async (req, res) => {
   try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedCart);
+    let updatedCart = null;
+    if (req.params.id)
+      updatedCart = await Cart.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        }
+      ).populate('products');
+    if (!updatedCart)
+      return res.status(200).json(await newCart(req));
+    return res.status(200).json(req.body)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -81,24 +79,28 @@ router.delete("/:id", verifyToken, async (req, res) => {
 });
 
 //GET USER CART
-router.get("/find", verifyToken, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
   try {
-    const cart = await cart.findOne({ userId: req.user._id });
-    res.status(200).json(cart);
+    const cart = await (Cart.findOne({ userId: req.params.id }).populate({
+      path: 'products',
+      populate: {
+        path: 'product',
+        model: 'Product'
+      }
+    }).exec())
+    console.log(cart)
+    if (cart !== null) {
+      return res.status(200).json(cart);
+    }
+    const newCart = new Cart({ userId: req.params.id, products: [] });
+    const result = await newCart.save()
+    return res.status(200).json(result);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
-// //GET ALL
 
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const carts = await carts.find();
-    res.status(200).json(carts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;

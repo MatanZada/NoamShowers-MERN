@@ -82,7 +82,7 @@ const CartItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const {  userData } = useAuth();
+  const { userData } = useAuth();
   return (
     <Container>
       <Wrapper>

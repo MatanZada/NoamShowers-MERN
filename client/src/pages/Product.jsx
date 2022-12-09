@@ -138,8 +138,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.itemsData.items);
   const handleAddToCart = (product) => {
-    console.log(product)
-    dispatch(addToCart({ ...product, quantity, color, size }));
+    dispatch(addToCart(product));
     navigate("/cart");
   };
 

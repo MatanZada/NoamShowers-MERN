@@ -215,7 +215,7 @@ const Cart = () => {
             cart,
             address: paymentRes.data.address,
           });
-          handleClearCart()
+          handleClearCart();
           navigate("/success", { state: { id: res.data._id } });
         } catch (e) {
           alert(e);
@@ -229,7 +229,7 @@ const Cart = () => {
 
   const totalPrice = useMemo(() => {
     return cart.products.reduce((prev, next) => {
-      return (prev + next.price * next.quantity);
+      return prev + next.price * next.quantity;
     }, 0);
   }, [cart]);
 
@@ -257,11 +257,11 @@ const Cart = () => {
                       <b>Product:</b> {product.title}
                     </ProductName>
                     <ProductId>
-                      <b>ID:</b> {product.id}
+                      <b>ID:</b> {product._id}
                     </ProductId>
                     <ProductColor color={product.color} />
                     <ProductSize>
-                      <b>Size:</b> {product.sizing}
+                      <b>Size:</b> {product.size}
                     </ProductSize>
                   </Details>
                 </ProductDetail>
@@ -274,9 +274,7 @@ const Cart = () => {
                   </ProductAmountContainer>
                   {product.price && (
                     <ProductPrice>
-                      {product.price *
-                        Number(product.quantity) +
-                        "$"}
+                      {+product.price * +product.quantity + "$"}
                     </ProductPrice>
                   )}
                 </PriceDetail>

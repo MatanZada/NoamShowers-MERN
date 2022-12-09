@@ -13,6 +13,7 @@ import { useAuth } from "./context/AuthContext";
 import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
 import { productsFetch } from "./redux/productSlice";
+import { cartFetch } from "./redux/cartRedux";
 const App = () => {
   const { userData } = useAuth()
   const dispatch = useDispatch();
