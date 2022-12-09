@@ -96,7 +96,6 @@ const Login = () => {
       try {
         await login(values);
       } catch (error) {
-        console.log(error)
         setError(error);
       }
     },
