@@ -131,13 +131,14 @@ const Product = () => {
   const item = location.state;
 
   const { id } = useParams();
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(item);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
   const products = useSelector((state) => state.itemsData.items);
   const handleAddToCart = (product) => {
+    console.log(product)
     dispatch(addToCart({ ...product, quantity, color, size }));
     navigate("/cart");
   };

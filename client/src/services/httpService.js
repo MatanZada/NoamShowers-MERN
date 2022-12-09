@@ -1,9 +1,8 @@
 import axios from "axios";
-import config from "../config.json";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../requestMethods";
 
-axios.defaults.baseURL = config.apiUrl;
-
+axios.defaults.baseURL = BASE_URL
 axios.interceptors.response.use(null, (err) => {
   if (err.code === "ERR_NETWORK") {
     toast.error("Network error");
@@ -13,17 +12,12 @@ axios.interceptors.response.use(null, (err) => {
   return Promise.reject(err);
 });
 
-export function setCommonHeader(headerName, value) {
-  axios.defaults.headers.common[headerName] = value;
-}
-
 const httpService = {
   get: axios.get,
   post: axios.post,
   patch: axios.patch,
   put: axios.put,
   delete: axios.delete,
-  setCommonHeader,
 };
 
 export default httpService;
