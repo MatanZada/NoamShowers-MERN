@@ -14,8 +14,9 @@ import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
 import { productsFetch } from "./redux/productSlice";
 import { cartFetch } from "./redux/cartRedux";
+import PageNotFound from "./pages/PageNotFound";
 const App = () => {
-  const { userData } = useAuth()
+  const { userData } = useAuth();
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.itemsData.items);
@@ -34,10 +35,14 @@ const App = () => {
           path="register"
           element={userData ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="login" element={userData ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="login"
+          element={userData ? <Navigate to="/" /> : <Login />}
+        />
         <Route path="signout" element={<Logout redirect="/" />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </React.Fragment>
   );
