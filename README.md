@@ -32,7 +32,7 @@ The slider displays 4 images, a product category, a product page, a shopping car
 
 ![Alt text](/client/src/images/allProducts.png "Git checkbox")
 
-![Alt text](/client/src/images/oneProduct.png "Git checkbox")
+![Alt text](/client/src/images/oneProducts.png "Git checkbox")
 
 ![Alt text](/client/src/images/allProductInCart.png "Git checkbox")
 
