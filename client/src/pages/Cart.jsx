@@ -236,6 +236,7 @@ const Cart = () => {
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantitys > 1 && setQuantity(quantitys - 1);
+      setQuantity(quantitys);
     } else {
       setQuantity(quantitys + 1);
     }
