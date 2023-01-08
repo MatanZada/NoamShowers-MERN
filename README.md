@@ -26,32 +26,32 @@ The slider displays 4 images, a product category, a product page, a shopping car
 
 # ScreenShot
 
-![Alt text](/client/src/images/slider.png "Git checkbox")
+![Alt text](/client/src/images/slider.png "Git checkbox2")
 
-![Alt text](/client/src/images/register.png "Git checkbox")
+![Alt text](/client/src/images/register.png "Git checkbox2")
 
-![Alt text](/client/src/images/login.png "Git checkbox")
+![Alt text](/client/src/images/login.png "Git checkbox2")
 
-![Alt text](/client/src/images/categirys.png "Git checkbox")
+![Alt text](/client/src/images/categirys.png "Git checkbox2")
 
-![Alt text](/client/src/images/allProducts.png "Git checkbox")
+![Alt text](/client/src/images/allProducts.png "Git checkbox2")
 
-![Alt text](/client/src/images/oneProducts.png "Git checkbox")
+![Alt text](/client/src/images/oneProducts.png "Git checkbox2")
 
-![Alt text](/client/src/images/allProductInCart.png "Git checkbox")
+![Alt text](/client/src/images/allProductInCart.png "Git checkbox2")
 
-![Alt text](/client/src/images/createOrder.png "Git checkbox")
+![Alt text](/client/src/images/createOrder.png "Git checkbox2")
 
 # ScreenShot Responsive Mobile
 
-![Alt text](/client/src/images/responsiveCart.png "Git checkbox")
+![Alt text](/client/src/images/responsiveCart.png "Git checkbox2")
 
-![Alt text](/client/src/images/responsiveCat.png "Git checkbox")
+![Alt text](/client/src/images/responsiveCat.png "Git checkbox2")
 
-![Alt text](/client/src/images/responsiveProduct.png "Git checkbox")
+![Alt text](/client/src/images/responsiveProduct.png "Git checkbox2")
 
 # DataBase Mongodb
 
-![Alt text](/client/src/images/userData.png "Git checkbox")
+![Alt text](/client/src/images/userData.png "Git checkbox2")
 
-![Alt text](/client/src/images/allData.png "Git checkbox")
+![Alt text](/client/src/images/allData.png "Git checkbox2")
