@@ -81,7 +81,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>Noam Showers.</Logo>
+        <Logo>Zada Showers.</Logo>
         <Desc>All rights reserved to Matan Zada</Desc>
         <SocialContainer>
           <SocialIcon color="4E4F51">
