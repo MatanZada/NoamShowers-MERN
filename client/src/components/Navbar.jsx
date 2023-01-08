@@ -95,7 +95,7 @@ const Navbar = () => {
         </Left>
         <NavLink to="/" style={{ textDecoration: "none" }}>
           <Center>
-            <Logo>Noam Showers.</Logo>
+            <Logo>Zada Showers.</Logo>
           </Center>
         </NavLink>
         <Right>
