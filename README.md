@@ -55,3 +55,5 @@ The slider displays 4 images, a product category, a product page, a shopping car
 ![Alt text](/client/src/images/userData.png "Git checkbox")
 
 ![Alt text](/client/src/images/allData.png "Git checkbox")
+
+
